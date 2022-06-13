@@ -1,24 +1,26 @@
-I chatbot, assistenti virtuali, sono tra gli strumenti che, grazie ai progressi nel campo dell'intelligenza artificiale, stanno riscuotendo notevole successo per aiutare e guidare l'utente nell'utilizzo di nuove tecnologie.
+I \textit{chatbot} sono software progettati per simulare una conversazione umana con interazioni sia testuali che vocali.
+%
+Negli ultimi anni, grazie agli importanti progressi nel campo dell'intelligenza artificiale e del \textit{machine learning}, questi assistenti virtuali si sono diffusi in una molteplicità di servizi, dall'ordinazione a domicilio all'assistenza clienti, la quale viene svolta da persone fisiche sempre più raramente.
 
-La Bookmark s.r.l. è una società informatica che sviluppa software gestionali web e, come tutte le aziende del settore, deve, per contratto, garantire la necessaria assistenza ai propri clienti. 
+Bookmark s.r.l. è una società informatica che sviluppa software gestionali web e, come tutte le aziende del settore, deve, per contratto, garantire la necessaria assistenza ai propri clienti. 
 %
 Tuttavia, una considerevole quantità di richieste di assistenza potrebbe essere smaltita "a monte" mediante l'uso di un assistente virtuale che, riuscendo ad interpretare la domanda dell'utente, è in grado di guidarlo e fornire una prima rapida forma di assistenza.
 
-Scopo di questo tirocinio era quindi quello di integrare un chatbot all'interno di una piattaforma gestionale finalizzato ad aziende di distribuzione e retail già esistente e funzionante.
-
-Il chatbot è stato integrato all'interno di Active Demand, una piattaforma gestionale web che integra i principali processi commerciali: contratti, politiche di \textit{pricing}, gestione magazzino e promozioni.
-
-Il chatbot utilizzato è di tipo ad "oracolo".
+\`E proprio in questo contesto che si innesta l'attività del tirocinio: lo scopo è stato quello di integrare un chatbot all'interno di \textit{Active Demand}, una piattaforma gestionale web che integra i principali processi commerciali: contratti, politiche di \textit{pricing}, gestione magazzino e promozioni.
 %
-La differenza sostanziale con un chatbot procedurale è che l'utente è guidato, sin dall'inizio, a compiere un insieme di scelte, viene cioè incanalato lungo uno degli $n$ percorsi prefissati in fase di sviluppo, mentre un chatbot di tipo ad "oracolo" è addestrato a riconoscere ed interpretare il senso della frase scritta dall'utente e a rispondere in modo adeguato.
-%
-Questo ultimo approccio consentirebbe quindi, teoricamente, se configurato opportunamente, di poter rispondere a qualsiasi tipo di domanda o input dell'utente.
+In particolare, l'obiettivo di Bookmark era di riuscire ad implementare un servizio che, una vola a regime, fosse in grado, da una parte di fornire un supporto più celere possibile all'utente, dall'altra alleggerire il carico sul personale addetto all'assistenza clienti.
 
-\begin{figure}%
-    \centering
-    \subfloat[\centering Esempio di chatbot procedurale - TOBi (Vodafone) ]{{\includegraphics[width=5cm]{./img/chatbot-procedurale.png} }}%
-    \qquad
-    \subfloat[\centering Esempio di chatbot ad oracolo]{{\includegraphics[width=5cm]{./img/chatbot-oracolo.png} }}%
-    \caption{Esempi di chatbot}%
-    \label{fig:example}%
+\begin{figure}
+    \centering{}
+    \includegraphics*[width=\textwidth]{./img/ad.png}
+    \caption{Active Demand}
+    \label{img:ad}
 \end{figure}
+
+Le linee guida generali richieste da Bookmark che hanno guidato la configurazione del \textit{chatbot} all'interno dell'applicativo si possono riassumere nei seguenti punti:
+\begin{itemize}
+    \item cercare di configurare al meglio il chatbot in modo tale da ridurre più possibile fonti errore e/o \textit{misunderstanding} da parte del \textit{chatbot}.
+    \item laddove ripetutamente il chatbot non sia in grado di capire la domanda (e quindi dare una risposta), passare il controllo ad un operatore;
+    \item nel caso in cui un operatore non sia disponibile dare la possibilità di aprire un nuovo \textit{ticket} di supporto. I \textit{ticket} di supporto sono, infatti, la modalità contrattualmente garantita da Bookmark per l'assistenza clienti.
+\end{itemize}
+
