@@ -1,11 +1,41 @@
-Stando all'esperienza maturata da Bookmark nel contesto dell'assistenza, una considerevole quantità di richieste di supporto riguardano il login e, più in generale, problemi di accesso alla piattaforma.
+Stando all'esperienza maturata da Bookmark nel contesto dell'assistenza clienti, una considerevole quantità di richieste di supporto riguardano il login e, più in generale, problemi di accesso alla piattaforma.
 %
-Dall'analisi svolta all'inizio del tirocinio si è quindi convenuto di iniziare a configurare possibili flussi di risposta per guidare l'utente nella fase di login e/o reset della password. 
+Dall'analisi svolta all'inizio del tirocinio si è quindi convenuto d'iniziare a configurare possibili flussi di risposta per guidare l'utente nella fase di login e/o reset della password. 
 
-Al fine di configurare opportunamente il \textit{chatbot} è stato necessario cnfigurare ciò che nella terminologia del \textit{chatbot} viene definito \textbf{\textit{intent}} ed \textbf{\textit{entità}}.
+\section{Configurazione \textit{intent} e flussi}
+Al fine di configurare opportunamente il \textit{chatbot} è stato necessario configurare ciò che nella terminologia del \textit{chatbot} viene definito \textbf{\textit{intent}} ed \textbf{\textit{entità}}.
+
+Le \textit{entità} sono sostanzialmente tutte le "cose" che il chatbot conosce e che è in grado di gestire. 
 
 Un \textit{intent} rappresenta un insieme di definizioni sintattiche che un utente può usare per esprimere un'intenzione.
 %
 Ad esempio: l'intenzione di chiedere come fare qualcosa si può esprimere con diverse forme: "in che modo si crea un progetto?", "come si crea un progetto?", "come faccio a creare un progetto?".
 
-Le \textit{entità} sono sostanzialmente tutte le cose che il chatbot conosce e che è in grado di gestire. 
+Ciascun \textit{intent} è quindi composto da diversi parametri che compongono le definizioni, ciascuno dei quali rappresenta un concetto di rilievo ai fini del riconoscimento dell'intento finale dell'utente. 
+%
+Ad esempio: nella definizione "Non riesco ad effettuare l'accesso", il verbo "riuscire" rappresenta il parametro primario indicatore di un problema; il verbo "effettuare" è il parametro indicatore dell'azione e "accesso" identifica l'oggetto della richiesta. 
+
+In generale quindi è necessario definire un insieme di definizioni che siano rappresentative dell'intenzione che si vuole creare e, a ciascuna di queste, dopo che Google NLP ha provveduto ad effettuarne l'analisi sintattica, associare ciascuna parola (\textit{token}) ad uno dei parametri definiti.
+%
+In \Cref{fig:intent} è mostrata la schermata in cui si vanno a configurare opportunamente i parametri e le associazioni.
+
+\begin{figure}
+    \centering{}
+    \includegraphics*[width=\textwidth]{./img/problem-intent.png}
+    \caption{Definizione di un \textit{intent} e dei suoi parametri}
+    \label{fig:intent}
+\end{figure}
+
+Una volta configurati tutti i parametri dell'\textit{intent} e alcune sue rappresentative definizioni, vengono scritti i \textbf{flussi}.
+%
+Un \textit{flusso} è una delle possibile "strade" che il \textit{chatbot} può seguire durante la conversazione.
+
+Ciascun flusso è definito a partire da un \textit{intent} e da un gruppo di \textit{entità}. 
+%
+Quando il motore del \textit{chatbot} riconosce all'interno della frase, grazie alle associazioni descritte in precedenza, quell'\textit{intent} e quell'insieme di entità, allora viene attivato quel flusso.
+
+Una volta creato, un flusso è un ambiente con una struttura a step attraverso la quale è possibile configurare delle risposte di testo, incorporare video e altri file multimediali, fare ulteriori domande o fare chiamate ad API e ad un operatore disponibile.
+
+Per quanto concerne il flusso dei problemi legati al \textit{login}, ci si è limitati a descrivere, a parole e con l'aiuto di un video tutorial che viene incorporato all'interno della risposta del \textit{chatbot}, come effettuare il reset della password del suo account.
+%
+Nel caso in cui la risposta non fosse sufficiente, allora viene passato il controllo ad un operatore.
