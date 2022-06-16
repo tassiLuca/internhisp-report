@@ -13,7 +13,7 @@ Questo dovrebbe sollevare, almeno in parte, stando agli intenti degli ideatori d
 
 Le \textit{Rich Internet Application} sviluppate con In.de sono basate su un \textit{framework} il cui schema di funzionamento è riassunto nel diagramma di \Cref{fig:framework} e che contiene i moduli per la gestione delle connessioni con il \textit{database}, della rappresentazione logica dell'interfaccia utente, nonché quelli per l'applicazione dei profili applicativi, per la personalizzazione dell'applicazione e per il controllo dell'andamento della sessione. 
 %
-L'oggetto \textit{In memory database} visualizzato nella parte sinstra dello schema è parte del \textit{framework} che coordina la \textit{business logic} e il \textit{presentation manager}.
+L'oggetto \textit{In memory database} visualizzato nella parte sinstra dello schema assume particolare importanza perché è parte del sistema che coordina la \textit{business logic} e il \textit{presentation manager}, ovvero il \textit{controller} del \textit{framework} \cite{inde}.
 
 \begin{figure}
     \centering{}
@@ -23,15 +23,15 @@ L'oggetto \textit{In memory database} visualizzato nella parte sinstra dello sch
 \end{figure}
 
 \section{Chatbot}
-Il chatbot utilizzato è di tipo ad "oracolo".
+Il chatbot utilizzato è stato sviluppato da Pro Gamma ed è di tipo ad "oracolo".
 %
 La differenza sostanziale con un chatbot procedurale è che l'utente, nell'ultimo caso, è guidato, sin dall'inizio, a compiere un insieme di scelte che lo portano a seguire uno degli $n$ percorsi prefissati in fase di sviluppo, mentre un chatbot di tipo ad "oracolo" è addestrato a riconoscere ed interpretare il senso della frase scritta dall'utente e a rispondere in modo adeguato.
 %
 Questo ultimo approccio consentirebbe quindi, teoricamente, se configurato opportunamente, di poter rispondere a qualsiasi tipo di domanda o input dell'utente.
 
-In \Cref{fig:chatbot-types} sono mostrati un esempio di \textit{chatbot} procedurale in cui è lo stesso \textit{chatbot} a guidare l'utente in uno dei possibili percorsi progettati (diventa cliente, stato attivazione, guasto di linea, fattura, ...) e un esempio di \textit{chatbot} ad "oracolo" in cui il chatbot si pone in ascolto dell'input dell'utente e cerca di riconoscere, attraverso l'analisi sintattica e semantica della frase, quale sia l'intento dell'utente.
+In \Cref{fig:chatbot-types} sono mostrati un esempio di \textit{chatbot} procedurale, in cui è lo stesso \textit{chatbot} a guidare l'utente in uno dei possibili percorsi (diventa cliente, stato attivazione, guasto di linea, fattura, ...), e un esempio di \textit{chatbot} ad "oracolo" in cui il chatbot si pone in ascolto dell'input dell'utente e cerca di riconoscere, attraverso l'analisi sintattica e semantica della frase, quale sia l'intento dell'utente.
 
-\begin{figure}
+\begin{figure}[ht]
     \centering{}
     \subfloat[\centering Esempio di chatbot procedurale - TOBi (Vodafone) ]{{\includegraphics[width=5.9cm]{./img/chatbot-procedurale.png} }}
     \qquad
@@ -40,9 +40,9 @@ In \Cref{fig:chatbot-types} sono mostrati un esempio di \textit{chatbot} procedu
     \label{fig:chatbot-types}
 \end{figure}
 
-Il funzionamento del chatbot si basa sul riconoscimento e l'interpretazione dei messaggi scritti dall'utente, sfruttando il servizio \textit{Google NLP}, una tecnologia in grado di generare, grazie all'utilizzo dell'IA, l'albero semantico relativo alla frase scritta dell'utente e confrontarlo con ciascuno degli alberi semantici con cui è stato configurato.
+Il funzionamento del \textit{chatbot}, quindi, si basa sul riconoscimento e l'interpretazione dei messaggi scritti dall'utente, sfruttando il servizio \textit{Google NLP}, una tecnologia in grado di generare, grazie all'utilizzo dell'IA, l'albero semantico relativo alla frase scritta dell'utente e confrontarlo con ciascuno degli alberi semantici con cui è stato configurato.
 
 \textit{Instant Support Editor} è l'applicazione web per la gestione e configurazione di tutto ciò che concerne il cuore del chatbot: dalla scrittura delle definizioni, al concepimento dei flussi.
 %
-A questa applicazione è poi affiancata un'applicazione (web e \textit{mobile}) che consente agli operatori di interloquire con l'utente.
+A questa applicazione è poi affiancata un'applicazione (web e \textit{mobile}) che consente agli operatori di interagire con l'utente, laddove necessario.
 

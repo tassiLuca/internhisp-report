@@ -1,6 +1,8 @@
 Stando all'esperienza maturata da Bookmark nel contesto dell'assistenza clienti, una considerevole quantità di richieste di supporto riguardano il login e, più in generale, problemi di accesso alla piattaforma.
 %
-Dall'analisi svolta all'inizio del tirocinio si è quindi convenuto d'iniziare a configurare possibili flussi di risposta per guidare l'utente nella fase di login e/o reset della password. 
+Dall'analisi svolta all'inizio del tirocinio si è convenuto d'iniziare a configurare possibili flussi di risposta per guidare l'utente nella fase di login e/o reset della password.
+
+Prima di iniziare a configurarlo ci si è premurati che il \textit{chatbot} fosse innestato correttamente all'interno del portale \textit{Active Demand} e che avesse uno stile coerente con l'applicazione.
 
 \section{Configurazione \textit{intent} e flussi}
 Al fine di configurare opportunamente il \textit{chatbot} è stato necessario configurare ciò che nella terminologia del \textit{chatbot} viene definito \textbf{\textit{intent}} ed \textbf{\textit{entità}}.
@@ -15,9 +17,9 @@ Ciascun \textit{intent} è quindi composto da diversi parametri che compongono l
 %
 Ad esempio: nella definizione "Non riesco ad effettuare l'accesso", il verbo "riuscire" rappresenta il parametro primario indicatore di un problema; il verbo "effettuare" è il parametro indicatore dell'azione e "accesso" identifica l'oggetto della richiesta. 
 
-In generale quindi è necessario definire un insieme di definizioni che siano rappresentative dell'intenzione che si vuole creare e, a ciascuna di queste, dopo che Google NLP ha provveduto ad effettuarne l'analisi sintattica, associare ciascuna parola (\textit{token}) ad uno dei parametri definiti.
+In generale quindi è necessario definire un insieme di definizioni che siano rappresentative dell'intenzione che si vuole creare e, a ciascuna di queste, dopo che Google NLP ha provveduto ad effettuarne l'analisi sintattica, associare ciascuna parola (\textit{token}) ad uno dei parametri definiti in precedenza.
 %
-In \Cref{fig:intent} è mostrata la schermata in cui si vanno a configurare opportunamente i parametri e le associazioni.
+In \Cref{fig:intent} è mostrata la schermata in cui si vanno a configurare opportunamente i parametri e le associazioni con i \textit{token}.
 
 \begin{figure}
     \centering{}
@@ -26,7 +28,7 @@ In \Cref{fig:intent} è mostrata la schermata in cui si vanno a configurare oppo
     \label{fig:intent}
 \end{figure}
 
-Una volta configurati tutti i parametri dell'\textit{intent} e alcune sue rappresentative definizioni, vengono scritti i \textbf{flussi}.
+Una volta configurati tutti i parametri dell'\textit{intent} e alcune sue rappresentative definizioni vengono scritti i \textbf{flussi}.
 %
 Un \textit{flusso} è una delle possibile "strade" che il \textit{chatbot} può seguire durante la conversazione.
 
@@ -38,4 +40,69 @@ Una volta creato, un flusso è un ambiente con una struttura a step attraverso l
 
 Per quanto concerne il flusso dei problemi legati al \textit{login}, ci si è limitati a descrivere, a parole e con l'aiuto di un video tutorial che viene incorporato all'interno della risposta del \textit{chatbot}, come effettuare il reset della password del suo account.
 %
-Nel caso in cui la risposta non fosse sufficiente, allora viene passato il controllo ad un operatore.
+Nel caso in cui la risposta non fosse sufficiente viene passato il controllo ad un operatore.
+
+\section{Configurazione operatore}
+Il \textit{chatbot} permette di configurare le risposte/azioni da intraprendere in base al numero di incomprensioni consecutive che sono occorse. 
+
+Tra queste vi è la possibilità di passare il controllo ad un operatore. L'applicativo, infatti, inoltra la richiesta dell'utente e la sua conversazione con l'assistente virtuale a uno degli operatori disponibili. 
+%
+Questi sono in grado, grazie un'apposita app, di visualizzare la conversazione e rispondere manualmente o, in caso di domande affini a cui è già stata data una risposta, di riutilizzare quella risposta. 
+%
+Quest'ultima funzionalità ha un effetto diretto sulla \textit{knowledge base}, permettendo al \textit{chatbot} di aggiungere le \textit{keyword} presenti nella richiesta come nuovo set di \textit{keyword} alternativo del flusso.
+
+Nel caso in cui non ci sia un operatore disponibile viene data l'opportunità di creare un nuovo \textit{ticket} di supporto.
+%
+Per farlo il \textit{chatbot} invia un messaggio all'applicazione. 
+%
+\`E stata sviluppata una piccola funzione JavaScript che, reagendo all'evento del messaggio, inoltra un messaggio nascosto al \textit{chatbot} per innescare il flusso di apertura del ticket, qui di seguito descritto.
+
+\section{API apertura di un ticket}
+
+\begin{figure}[h]
+    \centering{}
+    \includegraphics*[width=\textwidth]{./img/api-flow.png}
+    \caption{Flusso di controllo API apertura \textit{ticket} di supporto}
+    \label{fig:api-flow}
+\end{figure}
+
+Il sistema di supporto di Bookmark aveva già un'API pubblica che poteva essere usata per inserire un nuovo ticket di supporto. 
+%
+Tuttavia, per come è stata progettata, necessita di un \textit{token} di autenticazione e di altre informazioni che non sono in possesso del \textit{chatbot}, come l'identificativo del progetto per cui si chiede di aprire un ticket (Bookmark ha infatti un unico sistema di supporto per tutti i suoi progetti), ma possono essere ottenute agilmente dall'applicazione senza necessità di esporle all'esterno.
+%
+Inoltre, si vuole controllare che l'utente abbia i privilegi per poter creare un nuovo \textit{ticket}.
+
+Per queste ragione è stata sviluppata una funzione API intermedia che incapsulasse tutti i controlli ed effettuasse, in sequenza, tutte le chiamate necessarie alla creazione del \textit{ticket}. 
+
+\begin{figure}
+    \includegraphics*[width=15cm]{./img/api-1.png}
+    \includegraphics*[width=15cm]{./img/api-2.png}
+    \includegraphics*[width=\textwidth]{./img/api-3.png}
+    \caption{Frammenti di codice per il testing dell'apertura di un \textit{ticket}, sviluppati con framework In.de}
+    \label{fig:api}
+\end{figure}
+
+Si è quindi provveduto a scrivere l'insieme di funzioni all'interno di In.de (con cui Active Demand è stata sviluppata).
+%
+In \Cref{fig:api} è presentato uno stralcio del codice.
+
+D'altro canto, lato \textit{chatbot}, è stato sufficiente implementare una richiesta \texttt{POST} all'API sviluppata, incapsulando all'interno del body della richiesta i parametri utili all'apertura del ticket quali il titolo, l'ambito e il testo.
+%
+Il \textit{chatbot} si aspetta quindi una risposta \texttt{Json} con il risultato delle operazioni.
+
+In \Cref{fig:ticket-flow} è possibile vedere il flusso di creazione del \textit{ticket}. 
+
+Chiaramente l'apertura del ticket necessita di essere loggati alla piattaforma web. 
+%
+Non è quindi possibile, per come è stato progettato, aprire un ticket di supporto se non è stato effettuato l'accesso.
+
+\begin{figure}
+    \centering{}
+    \includegraphics*[width=\textwidth]{./img/ticket-flow.png}
+    \caption{Flusso apertura di un ticket}
+    \label{fig:ticket-flow}
+\end{figure}
+
+
+\section{Chiusura lavori}
+In vista di una possibile applicazione del \textit{chatbot} anche agli altri prodotti di Bookmark, negli ultimi giorni è stato steso un manuale con tutti i dettagli tecnici per configurarlo e installarlo all'interno del portale.
